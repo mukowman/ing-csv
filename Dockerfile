@@ -1,3 +1,5 @@
 FROM buildkite/puppeteer:latest
-RUN  npm i mocha
+WORKDIR /app
 RUN  npm i ing-au-login
+COPY . /app
+CMD node /app/ing.js

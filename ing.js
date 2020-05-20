@@ -14,18 +14,14 @@ const { login } = require('ing-au-login');
 
 
 (async () => {
-    const browser = await puppeteer.launch({
-        args: [
-        // Required for Docker version of Puppeteer
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        // This will write shared memory files into /tmp instead of /dev/shm,
-        // because Docker’s default for /dev/shm is 64MB
-        '--disable-dev-shm-usage'
-        ]
-    })
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     const authToken = await login(page, CLIENT_NUMBER, ACCESS_CODE)
     await browser.close();
     console.log('AuthToken:', authToken);
+    fs = require('fs');
+    fs.writeFile('/data/auth.txt', authToken, function (err) {
+        if (err) return console.log(err);
+        console.log('Wrote AuthToken to /data/auth.txt');
+    });
   })();

@@ -14,7 +14,7 @@ const { login } = require('ing-au-login');
 
 
 (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
         args: [
         // Required for Docker version of Puppeteer
         '--no-sandbox',
